@@ -6,15 +6,15 @@ dev:
 
 build:
     @echo "Rustflags=$RUSTFLAGS"
-    bun tauri build
+    bun lint && bun tauri build
 
 build-linux:
     @echo "Rustflags=$RUSTFLAGS"
-    bun tauri build --bundles deb,rpm
+    bun lint && bun tauri build --bundles deb,rpm
 
 build-winx:
     @echo "Rustflags=$RUSTFLAGS"
-    bun tauri build --runner cargo-xwin --target x86_64-pc-windows-msvc 
+    bun lint && bun tauri build --runner cargo-xwin --target x86_64-pc-windows-msvc 
 
 build-both:
     just build-linux
