@@ -1,0 +1,6 @@
+-- Your SQL goes here
+CREATE TABLE settings(
+	id INTEGER PRIMARY KEY AUTOINCREMENT,
+	skey TEXT UNIQUE NOT NULL,
+	value TEXT NOT NULL
+);

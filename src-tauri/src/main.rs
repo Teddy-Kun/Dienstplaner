@@ -2,5 +2,5 @@
 #![cfg_attr(not(debug_assertions), windows_subsystem = "windows")]
 
 fn main() {
-    shadcn_svelte_lib::run()
+	dienstplaner_lib::run()
 }

@@ -3,7 +3,7 @@ import { cn } from "$lib/utils.js";
 import { Tabs as TabsPrimitive } from "bits-ui";
 
 type $$Props = TabsPrimitive.TriggerProps;
-// type $$Events = TabsPrimitive.TriggerEvents;
+type $$Events = TabsPrimitive.TriggerEvents;
 
 let className: $$Props["class"] = undefined;
 export let value: $$Props["value"];
