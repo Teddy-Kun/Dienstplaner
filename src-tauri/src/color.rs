@@ -2,15 +2,27 @@
 use ashpd::desktop::Color;
 
 use serde::{Deserialize, Serialize};
+use colors_transform::{Color as Col, Rgb};
 
 #[derive(Serialize, Deserialize, Debug)]
 pub struct ColorSchemeAccent {
+	hue: f32,
+	saturation: f32,
+	luminance: f32,
 	hex_code: String,
 }
 
 impl ColorSchemeAccent {
 	pub fn new(red: u8, green: u8, blue: u8) -> ColorSchemeAccent {
+		let color = Rgb::from(red as f32, green as f32, blue as f32);
+		let hue = color.get_hue();
+		let saturation = color.get_saturation();
+		let luminance = color.get_lightness();
+
 		ColorSchemeAccent {
+			hue,
+			saturation,
+			luminance,
 			hex_code: format!("#{:02x}{:02x}{:02x}", red, green, blue),
 		}
 	}

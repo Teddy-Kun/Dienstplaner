@@ -5,6 +5,7 @@ import * as Tabs from "$lib/components/ui/tabs/index.js";
 import { invoke } from "@tauri-apps/api/core";
 import { toggleMode } from "mode-watcher";
 import { toast } from "svelte-sonner";
+    import { getAccentColor } from "../api";
 
 let name = $state("Test");
 let greetMsg = $state("");
@@ -16,6 +17,8 @@ async function greet(event: Event) {
 
 	toast.success(greetMsg);
 }
+
+getAccentColor(true)
 </script>
 
 <Toaster />
@@ -32,4 +35,5 @@ async function greet(event: Event) {
 	<Button on:click={toggleMode}>Dark</Button>
 	<Button on:click={greet}>Greet</Button>
 	<Button on:click={() => toast.error("Test")}>Test</Button>
+	<Button on:click={() => getAccentColor()}>Force Accent</Button>
 </main>

@@ -4,6 +4,9 @@ import { toast } from "svelte-sonner";
 const default_windows_accent: string = "#0077d6";
 
 export interface ColorSchemeAccent {
+	hue: number;
+	saturation: number;
+	luminance: number;
 	hex_code: string;
 }
 
@@ -94,13 +97,26 @@ export async function get_theme(
 	}
 }
 
+function getHslString(color: ColorSchemeAccent): string {
+	return `${color.hue} ${color.saturation}% ${color.luminance}%`;
+}
+
+function setPrimaryColor(color: ColorSchemeAccent) {
+	const accent = structuredClone(color);
+	accent.luminance += 15;
+	document.documentElement.style.setProperty("--primary", getHslString(color));
+	document.documentElement.style.setProperty("--accent", getHslString(accent));
+}
+
 export async function getAccentColor(
 	suppressError?: boolean,
 ): Promise<ColorSchemeAccent> {
 	try {
 		const resp = (await core.invoke("get_accent_color")) as ColorSchemeAccent;
 
-		document.documentElement.style.setProperty("--accent", resp.hex_code);
+		console.log(resp)
+
+		setPrimaryColor(resp);
 
 		return resp;
 	} catch (err) {
@@ -111,7 +127,19 @@ export async function getAccentColor(
 			default_windows_accent,
 		);
 
+
+		// TODO
+		setPrimaryColor({
+			hue: 0,
+			saturation: 0,
+			luminance: 0,
+			hex_code: default_windows_accent,
+		})
+
 		return {
+			hue: 0,
+			saturation: 0,
+			luminance: 0,
 			hex_code: default_windows_accent,
 		};
 	}
