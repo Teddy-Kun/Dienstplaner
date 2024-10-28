@@ -1,9 +1,9 @@
 <script lang="ts">
+import { Button } from "$lib/components/ui/button/index";
+import * as Card from "$lib/components/ui/card/index";
+import { Checkbox } from "$lib/components/ui/checkbox/index";
+import Input from "$lib/components/ui/input/input.svelte";
 import * as Table from "$lib/components/ui/table";
-import { Button } from "@lib/components/ui/button/index";
-import * as Card from "@lib/components/ui/card/index";
-import { Checkbox } from "@lib/components/ui/checkbox/index";
-import Input from "@lib/components/ui/input/input.svelte";
 import { onMount } from "svelte";
 import EditIcon from "~icons/material-symbols/edit-square";
 import Save from "~icons/material-symbols/save";
