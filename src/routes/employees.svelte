@@ -13,16 +13,9 @@ import { type Employee, WIP } from "../utils";
 
 interface EditableEmployee extends Employee {
 	checked: boolean;
+	editing: boolean;
 }
-let employees: EditableEmployee[] = $state([
-	{
-		id: 1,
-		name: "Max Mustermann",
-		hours: 40,
-		overtime: 0,
-		checked: false,
-	},
-]);
+let employees: EditableEmployee[] = $state([]);
 
 let allChecked: boolean | "indeterminate" = $state(false);
 
@@ -49,7 +42,8 @@ function check() {
 	else allChecked = "indeterminate";
 }
 
-function edit() {
+function edit(index: number) {
+	employees[index].editing = true;
 	WIP();
 }
 
@@ -74,6 +68,7 @@ function add() {
 		hours: 0,
 		overtime: 0,
 		checked: false,
+		editing: true,
 	});
 }
 
@@ -97,6 +92,7 @@ async function getEmployees() {
 	employees = (await get_employees()).map((employee) => ({
 		...employee,
 		checked: false,
+		editing: false,
 	}));
 }
 
@@ -118,7 +114,7 @@ onMount(getEmployees);
 				</Table.Row>
 			</Table.Header>
 			<Table.Body>
-				{#each employees as employee}
+				{#each employees as employee, i}
 					<Table.Row>
 						<Table.Cell>
 							<Checkbox bind:checked={employee.checked} onCheckedChange={check} />
@@ -127,7 +123,7 @@ onMount(getEmployees);
 						<Table.Cell>{employee.hours}</Table.Cell>
 						<Table.Cell>{employee.overtime}</Table.Cell>
 						<Table.Cell class="flex justify-end items-center">
-							<Button class="mr-1" onclick={edit}>
+							<Button class="mr-1" onclick={() => edit(i)}>
 								<EditIcon style="width: 20px; height: 20px; path: currentColor" />
 							</Button>
 							<Button onclick={() => deleteEmployee(employee.id)}>
