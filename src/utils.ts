@@ -1,3 +1,5 @@
+import { toast } from "svelte-sonner";
+
 export interface ColorSchemeAccent {
 	hue: number;
 	saturation: number;
@@ -69,4 +71,8 @@ export function setPrimaryColor(color: ColorSchemeAccent) {
 			getHslString(white),
 		);
 	}
+}
+
+export function WIP() {
+	toast("Noch nicht Implementiert");
 }

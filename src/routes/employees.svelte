@@ -6,7 +6,7 @@ import { Checkbox } from "@lib/components/ui/checkbox/index";
 import EditIcon from "~icons/material-symbols/edit-square";
 import Save from "~icons/material-symbols/save";
 import TrashIcon from "~icons/mdi/trash-can";
-import type { Employee } from "../utils";
+import { type Employee, WIP } from "../utils";
 
 let employees: Employee[] = $state([
 	{
@@ -18,23 +18,23 @@ let employees: Employee[] = $state([
 ]);
 
 function edit() {
-	console.log("TODO: edit");
+	WIP();
 }
 
 function deleteEmployee() {
-	console.log("TODO: delete");
+	WIP();
 }
 
 function deleteChecked() {
-	console.log("TODO: delete checked");
+	WIP();
 }
 
 function add() {
-	console.log("TODO: add");
+	WIP();
 }
 
 function save() {
-	console.log("TODO: save");
+	WIP();
 }
 </script>
 
