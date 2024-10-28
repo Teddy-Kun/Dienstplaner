@@ -5,7 +5,7 @@ import * as Tabs from "$lib/components/ui/tabs/index.js";
 import { invoke } from "@tauri-apps/api/core";
 import { toggleMode } from "mode-watcher";
 import { toast } from "svelte-sonner";
-    import { getAccentColor } from "../api";
+import { getAccentColor } from "../api";
 
 let name = $state("Test");
 let greetMsg = $state("");
@@ -18,7 +18,7 @@ async function greet(event: Event) {
 	toast.success(greetMsg);
 }
 
-getAccentColor(true)
+getAccentColor(true);
 </script>
 
 <Toaster />

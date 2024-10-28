@@ -125,7 +125,7 @@ export async function getAccentColor(
 	} catch (err) {
 		if (!suppressError) apiError(err);
 
-		setPrimaryColor(default_windows_accent)
+		setPrimaryColor(default_windows_accent);
 
 		return structuredClone(default_windows_accent);
 	}
