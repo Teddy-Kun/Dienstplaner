@@ -24,7 +24,30 @@ let employees: EditableEmployee[] = $state([
 	},
 ]);
 
+let allChecked: boolean | "indeterminate" = $state(false);
+
 let newEmployees: EditableEmployee[] = $state([]);
+
+$effect(() => {
+	if (allChecked === "indeterminate") return;
+
+	for (const employee of employees) employee.checked = allChecked;
+
+	for (const employee of newEmployees) employee.checked = allChecked;
+});
+
+function check() {
+	console.log("checking...");
+
+	if (employees.every((e) => e.checked) && newEmployees.every((e) => e.checked))
+		allChecked = true;
+	else if (
+		employees.every((e) => !e.checked) &&
+		newEmployees.every((e) => !e.checked)
+	)
+		allChecked = false;
+	else allChecked = "indeterminate";
+}
 
 function edit() {
 	WIP();
@@ -86,7 +109,7 @@ onMount(getEmployees);
 			<Table.Header>
 				<Table.Row>
 					<Table.Head>
-						<Checkbox />
+						<Checkbox bind:checked={allChecked} />
 					</Table.Head>
 					<Table.Head>Name</Table.Head>
 					<Table.Head>Stunden Pro Woche</Table.Head>
@@ -98,7 +121,7 @@ onMount(getEmployees);
 				{#each employees as employee}
 					<Table.Row>
 						<Table.Cell>
-							<Checkbox bind:checked={employee.checked} />
+							<Checkbox bind:checked={employee.checked} onCheckedChange={check} />
 						</Table.Cell>
 						<Table.Cell>{employee.name}</Table.Cell>
 						<Table.Cell>{employee.hours}</Table.Cell>
@@ -116,7 +139,7 @@ onMount(getEmployees);
 				{#each newEmployees as employee}
 					<Table.Row>
 						<Table.Cell>
-							<Checkbox bind:checked={employee.checked} />
+							<Checkbox bind:checked={employee.checked} onCheckedChange={check} />
 						</Table.Cell>
 						<Table.Cell>
 							<Input bind:value={employee.name} />
@@ -128,10 +151,7 @@ onMount(getEmployees);
 							<Input bind:value={employee.overtime} type="number" />
 						</Table.Cell>
 						<Table.Cell class="flex justify-end items-center">
-							<Button class="mr-1" onclick={edit}>
-								<EditIcon style="width: 20px; height: 20px; path: currentColor" />
-							</Button>
-							<Button onclick={() => deleteEmployee(employee.id)}>
+							<Button onclick={() => {newEmployees = newEmployees.filter((e) => e !== employee)}}>
 								<TrashIcon />
 							</Button>
 						</Table.Cell>
