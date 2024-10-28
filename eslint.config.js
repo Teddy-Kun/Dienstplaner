@@ -38,7 +38,7 @@ export default [
 				},
 			],
 			"svelte/indent": [
-				"off",
+				"warn",
 				{
 					indent: "tab",
 				},
