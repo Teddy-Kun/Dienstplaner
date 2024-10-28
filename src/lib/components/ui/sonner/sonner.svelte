@@ -5,7 +5,7 @@ import {
 	type ToasterProps as SonnerProps,
 } from "svelte-sonner";
 
-type $$Props = SonnerProps;
+let restProps: SonnerProps = $props();
 </script>
 
 <Sonner
@@ -19,5 +19,5 @@ type $$Props = SonnerProps;
 			cancelButton: "group-[.toast]:bg-muted group-[.toast]:text-muted-foreground",
 		},
 	}}
-	{...$$restProps}
+	{...restProps}
 />

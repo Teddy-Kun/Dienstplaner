@@ -10,8 +10,8 @@
 		"check": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json",
 		"check:watch": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json --watch",
 		"tauri": "tauri",
-		"lint": "tsc && eslint-p --cache . && biome check",
-		"lint:fix": "tsc && biome check --fix && eslint-p --cache --fix ."
+		"lint": "eslint-p --cache . && biome check",
+		"lint:fix": "biome check --fix && eslint-p --cache --fix ."
 	},
 	"license": "MIT",
 	"dependencies": {
@@ -31,7 +31,7 @@
 		"@types/node": "^22.8.1",
 		"@typescript-eslint/parser": "^8.12.0",
 		"autoprefixer": "^10.4.20",
-		"bits-ui": "^0.21.16",
+		"bits-ui": "^1.0.0-next.31",
 		"clsx": "^2.1.1",
 		"eslint": "^9.13.0",
 		"eslint-config-biome": "^1.9.3",

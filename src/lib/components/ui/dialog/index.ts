@@ -5,12 +5,12 @@ import Description from "./dialog-description.svelte";
 import Footer from "./dialog-footer.svelte";
 import Header from "./dialog-header.svelte";
 import Overlay from "./dialog-overlay.svelte";
-import Portal from "./dialog-portal.svelte";
 import Title from "./dialog-title.svelte";
 
-const Root = DialogPrimitive.Root;
-const Trigger = DialogPrimitive.Trigger;
-const Close = DialogPrimitive.Close;
+const Root: typeof DialogPrimitive.Root = DialogPrimitive.Root;
+const Trigger: typeof DialogPrimitive.Trigger = DialogPrimitive.Trigger;
+const Close: typeof DialogPrimitive.Close = DialogPrimitive.Close;
+const Portal: typeof DialogPrimitive.Portal = DialogPrimitive.Portal;
 
 export {
 	Root,
