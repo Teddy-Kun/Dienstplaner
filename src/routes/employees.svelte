@@ -3,9 +3,9 @@ import * as Table from "$lib/components/ui/table";
 import { Button } from "@lib/components/ui/button/index";
 import * as Card from "@lib/components/ui/card/index";
 import { Checkbox } from "@lib/components/ui/checkbox/index";
-import TrashIcon from "~icons/bxs/trash";
+import EditIcon from "~icons/material-symbols/edit-square";
 import Save from "~icons/material-symbols/save";
-import EditIcon from "~icons/uil/edit";
+import TrashIcon from "~icons/mdi/trash-can";
 import type { Employee } from "../utils";
 
 let employees: Employee[] = $state([
@@ -76,7 +76,10 @@ function save() {
 	</Card.Content>
 	<Card.Footer>
 		<Button onclick={add} class="mr-2 text-2xl">+</Button>
-		<Button onclick={deleteChecked}>Auswahl Löschen</Button>
+		<Button class="items-center justify-center" onclick={deleteChecked}>
+			<TrashIcon class="mr-1" />
+			Auswahl
+		</Button>
 		<div class="w-full"></div>
 		<Button onclick={save}>
 			<Save />
