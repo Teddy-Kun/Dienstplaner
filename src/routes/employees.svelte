@@ -8,23 +8,19 @@ import { onMount } from "svelte";
 import EditIcon from "~icons/material-symbols/edit-square";
 import Save from "~icons/material-symbols/save";
 import TrashIcon from "~icons/mdi/trash-can";
-import {
-	create_employee,
-	delete_employee,
-	get_employees,
-	put_employee,
-} from "../api";
-import { type Employee, WIP } from "../utils";
+import { create_employee, delete_employee, get_employees } from "../api";
+import { type Employee } from "../utils";
+import EditDialog from "./editDialog.svelte";
 
 interface EditableEmployee extends Employee {
 	checked: boolean;
-	editing: boolean;
 }
 let employees: EditableEmployee[] = $state([]);
-
-let allChecked: boolean | "indeterminate" = $state(false);
-
 let newEmployees: EditableEmployee[] = $state([]);
+
+let editing: Employee = $state({ id: 0, name: "", hours: 0, overtime: 0 });
+let allChecked: boolean | "indeterminate" = $state(false);
+let openEdit: boolean = $state(false);
 
 $effect(() => {
 	if (allChecked === "indeterminate") return;
@@ -48,9 +44,21 @@ function check() {
 }
 
 function edit(index: number) {
-	employees[index].editing = true;
-	WIP();
+	editing = {
+		id: employees[index].id,
+		name: employees[index].name,
+		hours: employees[index].hours,
+		overtime: employees[index].overtime,
+	};
+	openEdit = true;
 }
+
+$effect(() => {
+	if (!openEdit) {
+		getEmployees();
+		editing = { id: 0, name: "", hours: 0, overtime: 0 };
+	}
+});
 
 function deleteEmployee(id: number) {
 	delete_employee(id).then(() => getEmployees());
@@ -73,7 +81,6 @@ function add() {
 		hours: 0,
 		overtime: 0,
 		checked: false,
-		editing: true,
 	});
 }
 
@@ -84,9 +91,6 @@ function save() {
 		promises.push(
 			create_employee(employee.name, employee.hours, employee.overtime),
 		);
-
-	for (const employee of employees.filter((employee) => employee.editing))
-		promises.push(put_employee(employee));
 
 	Promise.allSettled(promises).then(() => {
 		newEmployees = [];
@@ -105,6 +109,7 @@ async function getEmployees() {
 onMount(getEmployees);
 </script>
 
+<EditDialog bind:open={openEdit} bind:employee={editing} />
 <Card.Root>
 	<Card.Content>
 		<Table.Root>
@@ -164,12 +169,12 @@ onMount(getEmployees);
 	</Card.Content>
 	<Card.Footer>
 		<Button onclick={add} class="mr-2 text-2xl">+</Button>
-		<Button class="items-center justify-center" onclick={deleteChecked}>
+		<Button disabled={allChecked === false} class="items-center justify-center" onclick={deleteChecked}>
 			<TrashIcon class="mr-1" />
 			Auswahl
 		</Button>
 		<div class="w-full"></div>
-		<Button onclick={save}>
+		<Button disabled={newEmployees.length === 0} onclick={save}>
 			<Save />
 		</Button>
 	</Card.Footer>
