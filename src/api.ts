@@ -49,9 +49,7 @@ export async function delete_employee(id: number) {
 	}
 }
 
-export async function put_employee(
-	employee: Employee
-) {
+export async function put_employee(employee: Employee) {
 	try {
 		await core.invoke("put_employee", {
 			id: Number(employee.id),
