@@ -3,6 +3,9 @@ import * as Table from "$lib/components/ui/table";
 import { Button } from "@lib/components/ui/button/index";
 import * as Card from "@lib/components/ui/card/index";
 import { Checkbox } from "@lib/components/ui/checkbox/index";
+import TrashIcon from "~icons/bxs/trash";
+import Save from "~icons/material-symbols/save";
+import EditIcon from "~icons/uil/edit";
 import type { Employee } from "../utils";
 
 let employees: Employee[] = $state([
@@ -58,9 +61,13 @@ function save() {
 						<Table.Cell>{employee.name}</Table.Cell>
 						<Table.Cell>{employee.hours}</Table.Cell>
 						<Table.Cell>{employee.overtime}</Table.Cell>
-						<Table.Cell>
-							<Button class="mr-1" onclick={edit}>Edit</Button>
-							<Button onclick={deleteEmployee}>Delete</Button>
+						<Table.Cell class="flex justify-end items-center">
+							<Button class="mr-1" onclick={edit}>
+								<EditIcon style="width: 20px; height: 20px; path: currentColor" />
+							</Button>
+							<Button onclick={deleteEmployee}>
+								<TrashIcon />
+							</Button>
 						</Table.Cell>
 					</Table.Row>
 				{/each}
@@ -68,9 +75,11 @@ function save() {
 		</Table.Root>
 	</Card.Content>
 	<Card.Footer>
-		<Button onclick={add} class="mr-2">Add</Button>
-		<Button onclick={deleteChecked}>Delte Checked</Button>
+		<Button onclick={add} class="mr-2 text-2xl">+</Button>
+		<Button onclick={deleteChecked}>Auswahl Löschen</Button>
 		<div class="w-full"></div>
-		<Button onclick={save}>Save</Button>
+		<Button onclick={save}>
+			<Save />
+		</Button>
 	</Card.Footer>
 </Card.Root>
