@@ -1,26 +1,11 @@
 import { core } from "@tauri-apps/api";
 import { toast } from "svelte-sonner";
-
-export interface ColorSchemeAccent {
-	hue: number;
-	saturation: number;
-	luminance: number;
-	hex_code: string;
-}
-
-export interface Employee {
-	id: number;
-	name: string;
-	hours: number;
-	overtime: number;
-}
-
-const default_windows_accent: ColorSchemeAccent = {
-	hue: 207,
-	saturation: 100,
-	luminance: 42,
-	hex_code: "#0077d6",
-};
+import {
+	type ColorSchemeAccent,
+	type Employee,
+	default_windows_accent,
+	setPrimaryColor,
+} from "./utils";
 
 function apiError(err: unknown) {
 	toast.error(err as string);
@@ -100,17 +85,6 @@ export async function get_theme(
 		if (!suppressError) apiError(err);
 		return "auto";
 	}
-}
-
-function getHslString(color: ColorSchemeAccent): string {
-	return `${color.hue} ${color.saturation}% ${color.luminance}%`;
-}
-
-function setPrimaryColor(color: ColorSchemeAccent) {
-	const accent = structuredClone(color);
-	accent.luminance += 15;
-	document.documentElement.style.setProperty("--primary", getHslString(color));
-	document.documentElement.style.setProperty("--accent", getHslString(accent));
 }
 
 export async function getAccentColor(
