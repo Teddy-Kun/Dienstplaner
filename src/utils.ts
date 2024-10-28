@@ -43,8 +43,10 @@ function getHslString(color: ColorSchemeAccent): string {
 export function setPrimaryColor(color: ColorSchemeAccent) {
 	const accent = structuredClone(color);
 	accent.luminance += 15;
+	const ring = structuredClone(accent);
 	document.documentElement.style.setProperty("--primary", getHslString(color));
 	document.documentElement.style.setProperty("--accent", getHslString(accent));
+	document.documentElement.style.setProperty("--ring", getHslString(ring));
 
 	if (accent.luminance > 60) {
 		document.documentElement.style.setProperty(
