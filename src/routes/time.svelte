@@ -5,7 +5,7 @@ import Save from "~icons/material-symbols/save";
 import { WIP } from "../utils";
 
 function save() {
-    WIP();
+	WIP();
 }
 </script>
 
@@ -13,7 +13,7 @@ function save() {
 	<Card.Content>
 		TODO
 	</Card.Content>
-    <Card.Footer class="justify-end">
+	<Card.Footer class="justify-end">
 		<Button onclick={save}>
 			<Save />
 		</Button>
