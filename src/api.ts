@@ -50,17 +50,14 @@ export async function delete_employee(id: number) {
 }
 
 export async function put_employee(
-	id: number,
-	name: string,
-	hours: number,
-	overtime: number,
+	employee: Employee
 ) {
 	try {
 		await core.invoke("put_employee", {
-			id,
-			name,
-			hours: Number(hours),
-			overtime: Number(overtime),
+			id: Number(employee.id),
+			name: employee.name,
+			hours: Number(employee.hours),
+			overtime: Number(employee.overtime),
 		});
 	} catch (err) {
 		apiError(err);

@@ -8,7 +8,7 @@ import { onMount } from "svelte";
 import EditIcon from "~icons/material-symbols/edit-square";
 import Save from "~icons/material-symbols/save";
 import TrashIcon from "~icons/mdi/trash-can";
-import { create_employee, delete_employee, get_employees } from "../api";
+import { create_employee, delete_employee, get_employees, put_employee } from "../api";
 import { type Employee, WIP } from "../utils";
 
 interface EditableEmployee extends Employee {
@@ -80,12 +80,13 @@ function save() {
 			create_employee(employee.name, employee.hours, employee.overtime),
 		);
 
+	for (const employee of employees.filter((employee) => employee.editing))
+		promises.push(put_employee(employee));
+
 	Promise.allSettled(promises).then(() => {
 		newEmployees = [];
 		getEmployees();
 	});
-
-	WIP();
 }
 
 async function getEmployees() {
