@@ -1,8 +1,6 @@
 import { core } from "@tauri-apps/api";
 import { toast } from "svelte-sonner";
 
-const default_windows_accent: string = "#0077d6";
-
 export interface ColorSchemeAccent {
 	hue: number;
 	saturation: number;
@@ -16,6 +14,13 @@ export interface Employee {
 	hours: number;
 	overtime: number;
 }
+
+const default_windows_accent: ColorSchemeAccent = {
+	hue: 207,
+	saturation: 100,
+	luminance: 42,
+	hex_code: "#0077d6",
+};
 
 function apiError(err: unknown) {
 	toast.error(err as string);
@@ -114,33 +119,14 @@ export async function getAccentColor(
 	try {
 		const resp = (await core.invoke("get_accent_color")) as ColorSchemeAccent;
 
-		console.log(resp)
-
 		setPrimaryColor(resp);
 
 		return resp;
 	} catch (err) {
 		if (!suppressError) apiError(err);
 
-		document.documentElement.style.setProperty(
-			"--accent",
-			default_windows_accent,
-		);
+		setPrimaryColor(default_windows_accent)
 
-
-		// TODO
-		setPrimaryColor({
-			hue: 0,
-			saturation: 0,
-			luminance: 0,
-			hex_code: default_windows_accent,
-		})
-
-		return {
-			hue: 0,
-			saturation: 0,
-			luminance: 0,
-			hex_code: default_windows_accent,
-		};
+		return structuredClone(default_windows_accent);
 	}
 }
