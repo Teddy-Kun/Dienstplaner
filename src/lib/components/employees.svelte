@@ -8,8 +8,8 @@ import { onMount } from "svelte";
 import EditIcon from "~icons/material-symbols/edit-square";
 import Save from "~icons/material-symbols/save";
 import TrashIcon from "~icons/mdi/trash-can";
-import { create_employee, delete_employee, get_employees } from "../api";
-import { type Employee } from "../utils";
+import { create_employee, delete_employee, get_employees } from "../../api";
+import { type Employee } from "../../utils";
 import EditDialog from "./editDialog.svelte";
 
 interface EditableEmployee extends Employee {
@@ -19,11 +19,12 @@ let employees: EditableEmployee[] = $state([]);
 let newEmployees: EditableEmployee[] = $state([]);
 
 let editing: Employee = $state({ id: 0, name: "", hours: 0, overtime: 0 });
-let allChecked: boolean | "indeterminate" = $state(false);
+let allChecked: boolean = $state(false);
+let indeterminate: boolean = $state(false);
 let openEdit: boolean = $state(false);
 
 $effect(() => {
-	if (allChecked === "indeterminate") return;
+	if (indeterminate) return;
 
 	for (const employee of employees) employee.checked = allChecked;
 
@@ -40,7 +41,7 @@ function check() {
 		newEmployees.every((e) => !e.checked)
 	)
 		allChecked = false;
-	else allChecked = "indeterminate";
+	else indeterminate = true;
 }
 
 function edit(index: number) {
@@ -116,7 +117,7 @@ onMount(getEmployees);
 			<Table.Header>
 				<Table.Row>
 					<Table.Head>
-						<Checkbox bind:checked={allChecked} />
+						<Checkbox bind:checked={allChecked} bind:indeterminate={indeterminate} />
 					</Table.Head>
 					<Table.Head>Name</Table.Head>
 					<Table.Head>Stunden Pro Woche</Table.Head>

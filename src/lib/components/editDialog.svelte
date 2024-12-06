@@ -4,8 +4,8 @@ import * as Dialog from "$lib/components/ui/dialog/index";
 import Input from "$lib/components/ui/input/input.svelte";
 import { onMount } from "svelte";
 import Save from "~icons/material-symbols/save";
-import { put_employee } from "../api";
-import type { Employee } from "../utils";
+import { put_employee } from "../../api";
+import type { Employee } from "../../utils";
 
 interface Props {
 	open: boolean;

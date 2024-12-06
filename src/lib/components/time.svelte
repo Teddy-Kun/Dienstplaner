@@ -2,7 +2,7 @@
 import { Button } from "$lib/components/ui/button/index";
 import * as Card from "$lib/components/ui/card/index";
 import Save from "~icons/material-symbols/save";
-import { WIP } from "../utils";
+import { WIP } from "../../utils";
 
 function save() {
 	WIP();
