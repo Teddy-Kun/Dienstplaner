@@ -1,14 +1,14 @@
 <script lang="ts">
-import { cn } from "$lib/utils.js";
-import { Popover as PopoverPrimitive } from "bits-ui";
+	import { cn } from "$lib/utils.js";
+	import { Popover as PopoverPrimitive } from "bits-ui";
 
-let {
-	ref = $bindable(null),
-	class: className,
-	align = "center",
-	sideOffset = 4,
-	...restProps
-}: PopoverPrimitive.ContentProps = $props();
+	let {
+		ref = $bindable(null),
+		class: className,
+		align = "center",
+		sideOffset = 4,
+		...restProps
+	}: PopoverPrimitive.ContentProps = $props();
 </script>
 
 <PopoverPrimitive.Portal>

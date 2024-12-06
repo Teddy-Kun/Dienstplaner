@@ -1,15 +1,15 @@
 <script lang="ts">
-import { buttonVariants } from "$lib/components/ui/button/index.js";
-import { cn } from "$lib/utils.js";
-import { RangeCalendar as RangeCalendarPrimitive } from "bits-ui";
+	import { buttonVariants } from "$lib/components/ui/button/index.js";
+	import { cn } from "$lib/utils.js";
+	import { RangeCalendar as RangeCalendarPrimitive } from "bits-ui";
 
-let {
-	ref = $bindable(null),
-	class: className,
-	...restProps
-}: RangeCalendarPrimitive.DayProps = $props();
+	let {
+		ref = $bindable(null),
+		class: className,
+		...restProps
+	}: RangeCalendarPrimitive.DayProps = $props();
 
-export { className as class };
+	export { className as class };
 </script>
 
 <RangeCalendarPrimitive.Day

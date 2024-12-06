@@ -1,21 +1,21 @@
 <script lang="ts">
-import { cn } from "$lib/utils.js";
-import {
-	Dialog as DialogPrimitive,
-	type WithoutChildrenOrChild,
-} from "bits-ui";
-import type { Snippet } from "svelte";
-import Cross2 from "svelte-radix/Cross2.svelte";
-import * as Dialog from "./index.js";
+	import { cn } from "$lib/utils.js";
+	import {
+		Dialog as DialogPrimitive,
+		type WithoutChildrenOrChild,
+	} from "bits-ui";
+	import type { Snippet } from "svelte";
+	import Cross2 from "svelte-radix/Cross2.svelte";
+	import * as Dialog from "./index.js";
 
-let {
-	ref = $bindable(null),
-	class: className,
-	children,
-	...restProps
-}: WithoutChildrenOrChild<DialogPrimitive.ContentProps> & {
-	children: Snippet;
-} = $props();
+	let {
+		ref = $bindable(null),
+		class: className,
+		children,
+		...restProps
+	}: WithoutChildrenOrChild<DialogPrimitive.ContentProps> & {
+		children: Snippet;
+	} = $props();
 </script>
 
 <Dialog.Portal>

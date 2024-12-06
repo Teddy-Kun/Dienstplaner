@@ -42,7 +42,7 @@ function getHslString(color: ColorSchemeAccent): string {
 	return `${color.hue} ${color.saturation}% ${color.luminance}%`;
 }
 
-export function setPrimaryColor(color: ColorSchemeAccent) {
+export function setPrimaryColor(color: ColorSchemeAccent): void {
 	const accent = structuredClone(color);
 	accent.luminance += 15;
 	const ring = structuredClone(accent);
@@ -73,6 +73,6 @@ export function setPrimaryColor(color: ColorSchemeAccent) {
 	}
 }
 
-export function WIP() {
+export function WIP(): void {
 	toast("Noch nicht Implementiert");
 }

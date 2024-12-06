@@ -1,17 +1,17 @@
 <script lang="ts">
-import { cn } from "$lib/utils.js";
-import { Accordion as AccordionPrimitive, type WithoutChild } from "bits-ui";
-import ChevronDown from "svelte-radix/ChevronDown.svelte";
+	import { cn } from "$lib/utils.js";
+	import { Accordion as AccordionPrimitive, type WithoutChild } from "bits-ui";
+	import ChevronDown from "svelte-radix/ChevronDown.svelte";
 
-let {
-	ref = $bindable(null),
-	class: className,
-	level = 3,
-	children,
-	...restProps
-}: WithoutChild<AccordionPrimitive.TriggerProps> & {
-	level?: AccordionPrimitive.HeaderProps["level"];
-} = $props();
+	let {
+		ref = $bindable(null),
+		class: className,
+		level = 3,
+		children,
+		...restProps
+	}: WithoutChild<AccordionPrimitive.TriggerProps> & {
+		level?: AccordionPrimitive.HeaderProps["level"];
+	} = $props();
 </script>
 
 <AccordionPrimitive.Header {level} class="flex">

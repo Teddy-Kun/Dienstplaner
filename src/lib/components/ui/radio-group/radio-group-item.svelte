@@ -1,18 +1,18 @@
 <script lang="ts">
-import { cn } from "$lib/utils.js";
-import {
-	RadioGroup as RadioGroupPrimitive,
-	type WithoutChildrenOrChild,
-} from "bits-ui";
-import Check from "svelte-radix/Check.svelte";
+	import { cn } from "$lib/utils.js";
+	import {
+		RadioGroup as RadioGroupPrimitive,
+		type WithoutChildrenOrChild,
+	} from "bits-ui";
+	import Check from "svelte-radix/Check.svelte";
 
-let {
-	ref = $bindable(null),
-	class: className,
-	...restProps
-}: WithoutChildrenOrChild<RadioGroupPrimitive.ItemProps> & {
-	value: string;
-} = $props();
+	let {
+		ref = $bindable(null),
+		class: className,
+		...restProps
+	}: WithoutChildrenOrChild<RadioGroupPrimitive.ItemProps> & {
+		value: string;
+	} = $props();
 </script>
 
 <RadioGroupPrimitive.Item

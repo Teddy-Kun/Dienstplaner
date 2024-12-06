@@ -7,7 +7,7 @@ import {
 	setPrimaryColor,
 } from "./utils";
 
-function apiError(err: unknown) {
+function apiError(err: unknown): void {
 	toast.error(err as string);
 }
 
@@ -41,7 +41,7 @@ export async function get_employees(): Promise<Employee[]> {
 	}
 }
 
-export async function delete_employee(id: number) {
+export async function delete_employee(id: number): Promise<void> {
 	try {
 		await core.invoke("delete_employee", { id });
 	} catch (err) {
@@ -49,7 +49,7 @@ export async function delete_employee(id: number) {
 	}
 }
 
-export async function put_employee(employee: Employee) {
+export async function put_employee(employee: Employee): Promise<void> {
 	try {
 		await core.invoke("put_employee", {
 			id: Number(employee.id),
@@ -62,7 +62,7 @@ export async function put_employee(employee: Employee) {
 	}
 }
 
-export async function set_theme(theme: "light" | "dark" | "auto") {
+export async function set_theme(theme: "light" | "dark" | "auto"): Promise<void> {
 	try {
 		await core.invoke("set_setting", { key: "theme", value: theme });
 	} catch (err) {

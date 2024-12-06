@@ -10,8 +10,8 @@
 		"check": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json",
 		"check:watch": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json --watch",
 		"tauri": "tauri",
-		"lint": "svelte-check && eslint-p --cache . && biome check",
-		"lint:fix": "svelte-check && eslint-p --cache --fix . && biome check --fix"
+		"lint": "svelte-check && eslint .",
+		"lint:fix": "svelte-check && eslint --fix ."
 	},
 	"license": "MIT",
 	"dependencies": {
@@ -21,9 +21,10 @@
 		"mode-watcher": "0.5.0"
 	},
 	"devDependencies": {
-		"@biomejs/biome": "^1.9.4",
 		"@iconify/json": "^2.2.265",
 		"@internationalized/date": "^3.5.6",
+		"@stylistic/eslint-plugin-js": "^2.11.0",
+		"@stylistic/eslint-plugin-ts": "^2.11.0",
 		"@sveltejs/adapter-static": "^3.0.6",
 		"@sveltejs/kit": "^2.7.3",
 		"@tailwindcss/typography": "^0.5.15",

@@ -1,11 +1,12 @@
 {
-	"recommendations": [
-		"svelte.svelte-vscode",
-		"tauri-apps.tauri-vscode",
-		"rust-lang.rust-analyzer",
-		"biomejs.biome",
-		"dbaeumer.vscode-eslint",
-		"ardenivanov.svelte-intellisense",
-		"bradlc.vscode-tailwindcss"
-	]
+  "recommendations": [
+    "svelte.svelte-vscode",
+    "tauri-apps.tauri-vscode",
+    "rust-lang.rust-analyzer",
+    "dbaeumer.vscode-eslint",
+    "tamasfe.even-better-toml",
+    "mkhl.mkhl-just",
+    "fill-labs.dependi",
+    "bradlc.vscode-tailwindcss"
+  ]
 }

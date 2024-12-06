@@ -1,113 +1,113 @@
 <script lang="ts">
-import { Button } from "$lib/components/ui/button/index";
-import * as Card from "$lib/components/ui/card/index";
-import { Checkbox } from "$lib/components/ui/checkbox/index";
-import Input from "$lib/components/ui/input/input.svelte";
-import * as Table from "$lib/components/ui/table";
-import { onMount } from "svelte";
-import EditIcon from "~icons/material-symbols/edit-square";
-import Save from "~icons/material-symbols/save";
-import TrashIcon from "~icons/mdi/trash-can";
-import { create_employee, delete_employee, get_employees } from "../../api";
-import { type Employee } from "../../utils";
-import EditDialog from "./editDialog.svelte";
+	import { Button } from "$lib/components/ui/button/index";
+	import * as Card from "$lib/components/ui/card/index";
+	import { Checkbox } from "$lib/components/ui/checkbox/index";
+	import Input from "$lib/components/ui/input/input.svelte";
+	import * as Table from "$lib/components/ui/table";
+	import { onMount } from "svelte";
+	import EditIcon from "~icons/material-symbols/edit-square";
+	import Save from "~icons/material-symbols/save";
+	import TrashIcon from "~icons/mdi/trash-can";
+	import { create_employee, delete_employee, get_employees } from "../../api";
+	import { type Employee } from "../../utils";
+	import EditDialog from "./editDialog.svelte";
 
-interface EditableEmployee extends Employee {
-	checked: boolean;
-}
-let employees: EditableEmployee[] = $state([]);
-let newEmployees: EditableEmployee[] = $state([]);
-
-let editing: Employee = $state({ id: 0, name: "", hours: 0, overtime: 0 });
-let allChecked: boolean = $state(false);
-let indeterminate: boolean = $state(false);
-let openEdit: boolean = $state(false);
-
-$effect(() => {
-	if (indeterminate) return;
-
-	for (const employee of employees) employee.checked = allChecked;
-
-	for (const employee of newEmployees) employee.checked = allChecked;
-});
-
-function check() {
-	console.log("checking...");
-
-	if (employees.every((e) => e.checked) && newEmployees.every((e) => e.checked))
-		allChecked = true;
-	else if (
-		employees.every((e) => !e.checked) &&
-		newEmployees.every((e) => !e.checked)
-	)
-		allChecked = false;
-	else indeterminate = true;
-}
-
-function edit(index: number) {
-	editing = {
-		id: employees[index].id,
-		name: employees[index].name,
-		hours: employees[index].hours,
-		overtime: employees[index].overtime,
-	};
-	openEdit = true;
-}
-
-$effect(() => {
-	if (!openEdit) {
-		getEmployees();
-		editing = { id: 0, name: "", hours: 0, overtime: 0 };
+	interface EditableEmployee extends Employee {
+		checked: boolean;
 	}
-});
+	let employees: EditableEmployee[] = $state([]);
+	let newEmployees: EditableEmployee[] = $state([]);
 
-function deleteEmployee(id: number) {
-	delete_employee(id).then(() => getEmployees());
-}
+	let editing: Employee = $state({ id: 0, name: "", hours: 0, overtime: 0 });
+	let allChecked: boolean = $state(false);
+	let indeterminate: boolean = $state(false);
+	let openEdit: boolean = $state(false);
 
-function deleteChecked() {
-	const promises: Promise<unknown>[] = [];
-	for (const employee of employees.filter((employee) => employee.checked))
-		promises.push(delete_employee(employee.id));
+	$effect(() => {
+		if (indeterminate) return;
 
-	newEmployees = newEmployees.filter((employee) => !employee.checked);
+		for (const employee of employees) employee.checked = allChecked;
 
-	Promise.allSettled(promises).then(getEmployees);
-}
-
-function add() {
-	newEmployees.push({
-		id: (newEmployees.length + 1) * -1,
-		name: "",
-		hours: 0,
-		overtime: 0,
-		checked: false,
+		for (const employee of newEmployees) employee.checked = allChecked;
 	});
-}
 
-function save() {
-	const promises: Promise<unknown>[] = [];
+	function check(): void {
+		console.log("checking...");
 
-	for (const employee of newEmployees)
-		promises.push(
-			create_employee(employee.name, employee.hours, employee.overtime),
-		);
+		if (employees.every((e) => e.checked) && newEmployees.every((e) => e.checked))
+			allChecked = true;
+		else if (
+			employees.every((e) => !e.checked) &&
+			newEmployees.every((e) => !e.checked)
+		)
+			allChecked = false;
+		else indeterminate = true;
+	}
 
-	Promise.allSettled(promises).then(() => {
-		newEmployees = [];
-		getEmployees();
+	function edit(index: number): void {
+		editing = {
+			id: employees[index].id,
+			name: employees[index].name,
+			hours: employees[index].hours,
+			overtime: employees[index].overtime,
+		};
+		openEdit = true;
+	}
+
+	$effect(() => {
+		if (!openEdit) {
+			getEmployees();
+			editing = { id: 0, name: "", hours: 0, overtime: 0 };
+		}
 	});
-}
 
-async function getEmployees() {
-	employees = (await get_employees()).map((employee) => ({
-		...employee,
-		checked: false,
-		editing: false,
-	}));
-}
+	function deleteEmployee(id: number): void {
+		delete_employee(id).then(() => getEmployees());
+	}
 
-onMount(getEmployees);
+	function deleteChecked(): void {
+		const promises: Promise<unknown>[] = [];
+		for (const employee of employees.filter((employee) => employee.checked))
+			promises.push(delete_employee(employee.id));
+
+		newEmployees = newEmployees.filter((employee) => !employee.checked);
+
+		Promise.allSettled(promises).then(getEmployees);
+	}
+
+	function add(): void {
+		newEmployees.push({
+			id: (newEmployees.length + 1) * -1,
+			name: "",
+			hours: 0,
+			overtime: 0,
+			checked: false,
+		});
+	}
+
+	function save(): void {
+		const promises: Promise<unknown>[] = [];
+
+		for (const employee of newEmployees)
+			promises.push(
+				create_employee(employee.name, employee.hours, employee.overtime),
+			);
+
+		Promise.allSettled(promises).then(() => {
+			newEmployees = [];
+			getEmployees();
+		});
+	}
+
+	async function getEmployees(): Promise<void> {
+		employees = (await get_employees()).map((employee) => ({
+			...employee,
+			checked: false,
+			editing: false,
+		}));
+	}
+
+	onMount(getEmployees);
 </script>
 
 <EditDialog bind:open={openEdit} bind:employee={editing} />
@@ -135,10 +135,10 @@ onMount(getEmployees);
 						<Table.Cell>{employee.hours}</Table.Cell>
 						<Table.Cell>{employee.overtime}</Table.Cell>
 						<Table.Cell class="flex justify-end items-center">
-							<Button class="mr-1" onclick={() => edit(i)}>
+							<Button class="mr-1" onclick={(): void => edit(i)}>
 								<EditIcon style="width: 20px; height: 20px; path: currentColor" />
 							</Button>
-							<Button onclick={() => deleteEmployee(employee.id)}>
+							<Button onclick={(): void => deleteEmployee(employee.id)}>
 								<TrashIcon />
 							</Button>
 						</Table.Cell>
@@ -159,7 +159,7 @@ onMount(getEmployees);
 							<Input bind:value={employee.overtime} type="number" />
 						</Table.Cell>
 						<Table.Cell class="flex justify-end items-center">
-							<Button onclick={() => {newEmployees = newEmployees.filter((e) => e !== employee)}}>
+							<Button onclick={(): void => {newEmployees = newEmployees.filter((e) => e !== employee);}}>
 								<TrashIcon />
 							</Button>
 						</Table.Cell>

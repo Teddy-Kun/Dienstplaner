@@ -1,44 +1,44 @@
 <script lang="ts" module>
-import type { WithElementRef } from "bits-ui";
-import type {
-	HTMLAnchorAttributes,
-	HTMLButtonAttributes,
-} from "svelte/elements";
-import { type VariantProps, tv } from "tailwind-variants";
+	import type { WithElementRef } from "bits-ui";
+	import type {
+		HTMLAnchorAttributes,
+		HTMLButtonAttributes,
+	} from "svelte/elements";
+	import { type VariantProps, tv } from "tailwind-variants";
 
-export const buttonVariants = tv({
-	base: "hover:bg-accent hover:text-accent-foreground focus-visible:ring-ring inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-1 disabled:pointer-events-none disabled:opacity-50",
-	variants: {
-		variant: {
-			default: "bg-primary text-primary-foreground shadow",
-			destructive:
-				"bg-destructive text-destructive-foreground hover:bg-destructive/90 shadow-sm",
-			outline: "border-input bg-background border shadow-sm",
-			secondary: "bg-secondary text-secondary-foreground shadow-sm",
-			ghost: "",
-			link: "text-primary underline-offset-4 hover:underline hover:bg-none hover:text-foreground",
+	export const buttonVariants = tv({
+		base: "hover:bg-accent hover:text-accent-foreground focus-visible:ring-ring inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-1 disabled:pointer-events-none disabled:opacity-50",
+		variants: {
+			variant: {
+				default: "bg-primary text-primary-foreground shadow",
+				destructive:
+					"bg-destructive text-destructive-foreground hover:bg-destructive/90 shadow-sm",
+				outline: "border-input bg-background border shadow-sm",
+				secondary: "bg-secondary text-secondary-foreground shadow-sm",
+				ghost: "",
+				link: "text-primary underline-offset-4 hover:underline hover:bg-none hover:text-foreground",
+			},
+			size: {
+				default: "h-9 px-4 py-2",
+				sm: "h-8 rounded-md px-3 text-xs",
+				lg: "h-10 rounded-md px-8",
+				icon: "h-9 w-9",
+			},
 		},
-		size: {
-			default: "h-9 px-4 py-2",
-			sm: "h-8 rounded-md px-3 text-xs",
-			lg: "h-10 rounded-md px-8",
-			icon: "h-9 w-9",
+		defaultVariants: {
+			variant: "default",
+			size: "default",
 		},
-	},
-	defaultVariants: {
-		variant: "default",
-		size: "default",
-	},
-});
+	});
 
-export type ButtonVariant = VariantProps<typeof buttonVariants>["variant"];
-export type ButtonSize = VariantProps<typeof buttonVariants>["size"];
+	export type ButtonVariant = VariantProps<typeof buttonVariants>["variant"];
+	export type ButtonSize = VariantProps<typeof buttonVariants>["size"];
 
-export type ButtonProps = WithElementRef<HTMLButtonAttributes> &
-	WithElementRef<HTMLAnchorAttributes> & {
-		variant?: ButtonVariant;
-		size?: ButtonSize;
-	};
+	export type ButtonProps = WithElementRef<HTMLButtonAttributes> &
+		WithElementRef<HTMLAnchorAttributes> & {
+			variant?: ButtonVariant;
+			size?: ButtonSize;
+		};
 </script>
 
 <script lang="ts">

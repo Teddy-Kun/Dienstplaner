@@ -1,14 +1,14 @@
 <script lang="ts">
-import { buttonVariants } from "$lib/components/ui/button/index.js";
-import { cn } from "$lib/utils.js";
-import { RangeCalendar as RangeCalendarPrimitive } from "bits-ui";
-import ChevronLeft from "svelte-radix/ChevronLeft.svelte";
-let {
-	ref = $bindable(null),
-	class: className,
-	children,
-	...restProps
-}: RangeCalendarPrimitive.PrevButtonProps = $props();
+	import { buttonVariants } from "$lib/components/ui/button/index.js";
+	import { cn } from "$lib/utils.js";
+	import { RangeCalendar as RangeCalendarPrimitive } from "bits-ui";
+	import ChevronLeft from "svelte-radix/ChevronLeft.svelte";
+	let {
+		ref = $bindable(null),
+		class: className,
+		children,
+		...restProps
+	}: RangeCalendarPrimitive.PrevButtonProps = $props();
 </script>
 
 {#snippet Fallback()}
